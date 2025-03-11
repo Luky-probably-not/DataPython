@@ -1,7 +1,7 @@
 Groupe 9 :
 
-Texier Maïwenn
-Gaudin Jérémy
-Bodusseau Jean-Baptiste
+Texier Maïwenn \n
+Gaudin Jérémy \n
+Bodusseau Jean-Baptiste \n
 
 Sujet : Titanic
