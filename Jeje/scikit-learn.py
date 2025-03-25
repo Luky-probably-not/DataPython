@@ -33,7 +33,7 @@ y_pred = model.predict(X_test)
 
 print(f"Accuracy: {accuracy_score(y_test, y_pred):.2f}")
 print(f"F1-Score: {f1_score(y_test, y_pred):.2f}")
-
+print(pd.DataFrame({"Survived" : y_pred})["Survived"].mean())
 # Visualisation de la matrice de confusion
 plt.figure(figsize=(6, 4))
 sns.heatmap(confusion_matrix(y_test, y_pred), 
