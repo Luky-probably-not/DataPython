@@ -1,9 +1,22 @@
-import pandas as pd
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 import seaborn as sns
+import pandas as pd
+from ydata_profiling import ProfileReport
 
-df = pd.read_csv("../titanic/train.csv")
+df = pd.read_csv("../data/train.csv")
+print(df.head())
 
+#print("Average age is ", df["Age"].mean())
+
+#df["Colonne_sans_sens"]=df["Age"]/df["Pclass"]
+
+#df["IsMale"]=(df["Sex"]=="male").astype(int)
+
+#print("The percentage of males is ", (df["Sex"].value_counts(normalize=True)['male']) * 100)
+
+# Creation du Profile Report de ydata_profiling
+profile = ProfileReport(df, title="Profiling Report")
+profile.to_file("your_report.html")
 
 # Graphique 1 : Lien entre l'âge et le prix du billet
 plt.figure(figsize=(10, 6))
