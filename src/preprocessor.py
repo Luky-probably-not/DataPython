@@ -1,23 +1,30 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# Prétraitement des données
-def preprocess(df):
+class preprocessor_Titanic:
     
-    # Gestion des valeurs manquantes
-    df.drop(columns=["Cabin", "Ticket", "Name", "PassengerId"], inplace=True) #trop de valeurs manquantes, pas rentable / Ticket et Name = valeurs inutiles et qui crash le prgrame ¯\_(ツ)_/¯
-    df["Age"].fillna(df["Age"].median(), inplace=True) #colonne importante, donc on la remplie comme possible avec la mediane
-    df["Fare"].fillna(df["Fare"].median(), inplace=True) #on remplace les valeurs manquantes par la mediane
-    df["Embarked"].fillna(df["Embarked"].mode()[0], inplace=True) #juste 2 valeurs manquantes, on peut la remplir avec la valeur la plus frequente
+    def __init__(self):
+        self.median_age = None
+        self.median_fare = None
+        self.mode_embarked = None
 
-    # Encodage des variables catégorielles
-    df = pd.get_dummies(df, columns=['Sex', 'Embarked'], drop_first=True)
-
-    X = df.drop('Survived', axis=1) # Correction: la target est 'Survived'
-    y = df['Survived']
-
-    # Split des données
-    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    def fit(self, df):
+        self.median_age = df["Age"].median()
+        self.median_fare = df["Fare"].median()
+        self.mode_embarked = df["Embarked"].mode()[0]
+        
+    def transform(self,df):
+        df = df.drop(["Cabin", "Ticket", "Name", "PassengerId"], axis=1)
+        df["Age"] = df["Age"].fillna(self.median_age)
+        df["Fare"] = df["Fare"].fillna(self.median_fare)
+        df["Embarked"] = df["Embarked"].fillna(self.mode_embarked)
+        
+        df = pd.get_dummies(df, columns=["Sex", "Embarked"], drop_first=True)
+        
+        return df
     
-    return x_train, x_test, y_train, y_test
+    def fit_transform(self, df):
+        self.fit(df) 
+        return self.transform(df)
+        
     
