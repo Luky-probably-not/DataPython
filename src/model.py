@@ -26,6 +26,7 @@ class model_Titanic:
         print(f"Accuracy: {acc:.4f}")
         print(f"F1-Score: {f1:.4f}")
         print("Matrice de confusion :\n", cm)
+        return acc
         
         
 # # Entraînement du modèle
